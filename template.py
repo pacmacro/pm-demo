@@ -1,4 +1,9 @@
 #!/usr/bin/python3
+#
+# This Python 3 file is a template for creating a demonstration script
+# for a Pac Macro player. Fill in and modify the configurations below
+# before executing the script.
+#
 
 import time
 
