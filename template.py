@@ -23,10 +23,8 @@ PLAYER_NAME = "Pacman"
 
 # The start and end coordinates between which the player should travel
 # See the Pac Macro Server Wiki for Pacdot locations within the game map
-LATITUDE_START  = 0
-LONGITUDE_START = 0
-LATITUDE_END    = 50
-LONGITUDE_END   = -50
+COORDINATE_START = {"latitude": 0, "longitude": 0}
+COORDINATE_END = {"latitude": 50, "longitude": -50}
 
 # The number of steps taken between the two coordinates
 STEPS = 15
@@ -36,25 +34,38 @@ STEPS = 15
 DELAY_TIME = 0.7
 
 if __name__ == "__main__":
-    pacmacro.select_player(BASE_URL, PLAYER_NAME, LATITUDE_START, LONGITUDE_START)
+    pacmacro.select_player(BASE_URL, PLAYER_NAME, COORDINATE_START)
 
-    latitude_step = (LATITUDE_END - LATITUDE_START) / STEPS
-    longitude_step = (LONGITUDE_END - LONGITUDE_START) / STEPS
+    latitude_step = (
+            (COORDINATE_END.get("latitude") - COORDINATE_START.get("latitude"))
+            / STEPS
+    )
+    longitude_step = (
+            (COORDINATE_END.get("longitude") - COORDINATE_START.get("longitude"))
+            / STEPS
+    )
 
     while True:
+        new_coordinate = COORDINATE_START.copy()
+
         for i in range(STEPS):
+            new_coordinate["latitude"] = \
+                    COORDINATE_START.get("latitude") + i*latitude_step
+            new_coordinate["longitude"] = \
+                    COORDINATE_START.get("longitude") + i*longitude_step
+
             pacmacro.set_player_location(
-                    BASE_URL,
-                    PLAYER_NAME,
-                    LATITUDE_START + i*latitude_step,
-                    LONGITUDE_START + i*longitude_step
+                    BASE_URL, PLAYER_NAME, new_coordinate
             )
             time.sleep(DELAY_TIME)
+
         for i in range(STEPS, 0, -1):
+            new_coordinate["latitude"] = \
+                    COORDINATE_START.get("latitude") + i*latitude_step
+            new_coordinate["longitude"] = \
+                    COORDINATE_START.get("longitude") + i*longitude_step
+
             pacmacro.set_player_location(
-                    BASE_URL,
-                    PLAYER_NAME,
-                    LATITUDE_START + i*latitude_step,
-                    LONGITUDE_START + i*longitude_step
+                    BASE_URL, PLAYER_NAME, new_coordinate
             )
             time.sleep(DELAY_TIME)

@@ -6,10 +6,13 @@
 import json
 import requests
 
-HEADERS  = {"Content-Type":"application/json"}
+HEADERS = {"Content-Type":"application/json"}
 
-def create_json_coordinate_body(latitude, longitude):
-    return json.dumps({"latitude":latitude, "longitude":longitude})
+def create_json_coordinate_body(coordinate):
+    return json.dumps({
+            "latitude": coordinate.get("latitude"),
+            "longitude": coordinate.get("longitude")
+    })
 
 def create_json_state_body(state):
     return json.dumps({"state":state})
@@ -33,16 +36,16 @@ def start_game(base_url):
             data = create_json_state_body("IN_PROGRESS")
     ))
 
-def select_player(base_url, name, latitude, longitude):
+def select_player(base_url, name, coordinate):
     log_response(requests.post(
             base_url + "/player/" + name,
             headers = HEADERS,
-            data = create_json_coordinate_body(latitude, longitude)
+            data = create_json_coordinate_body(coordinate)
     ))
 
-def set_player_location(base_url, name, latitude, longitude):
+def set_player_location(base_url, name, coordinate):
     log_response(requests.put(
             base_url + "/player/" + name + "/location",
             headers = HEADERS,
-            data = create_json_coordinate_body(latitude, longitude)
+            data = create_json_coordinate_body(coordinate)
     ))
