@@ -54,7 +54,7 @@ def move_player(
             / steps
     )
     longitude_step = (
-            (coordinate_start.get("longitude") -
+            (coordinate_end.get("longitude") -
             coordinate_start.get("longitude"))
             / steps
     )
