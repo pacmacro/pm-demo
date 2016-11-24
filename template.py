@@ -5,8 +5,6 @@
 # before executing the script.
 #
 
-import time
-
 # Custom modules
 import pacmacro
 
