@@ -30,29 +30,22 @@ def log_response(response):
     )
     print()
 
-def start_game(base_url):
-    log_response(requests.put(
-            base_url + "/admin/gamestate",
-            headers = HEADERS,
-            data = create_json_state_body("IN_PROGRESS")
-    ))
-
-def select_player(base_url, name, coordinate):
+def select_player(base_url, player_name, coordinate):
     log_response(requests.post(
-            base_url + "/player/" + name,
+            base_url + "/player/" + player_name,
             headers = HEADERS,
             data = create_json_coordinate_body(coordinate)
     ))
 
-def set_player_location(base_url, name, coordinate):
+def set_player_location(base_url, player_name, coordinate):
     log_response(requests.put(
-            base_url + "/player/" + name + "/location",
+            base_url + "/player/" + player_name + "/location",
             headers = HEADERS,
             data = create_json_coordinate_body(coordinate)
     ))
 
 def move_player(
-        base_url, name,
+        base_url, player_name,
         coordinate_start, coordinate_end,
         steps, delay_secs):
 
@@ -74,6 +67,6 @@ def move_player(
                 coordinate_start.get("longitude") + i*longitude_step
 
         set_player_location(
-                base_url, name, new_coordinate
+                base_url, player_name, new_coordinate
         )
         time.sleep(delay_secs)

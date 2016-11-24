@@ -31,7 +31,7 @@ STEPS = 15
 
 # The amount of seconds between each location update (not including
 # request/response times)
-DELAY_TIME = 0.7
+DELAY_SECS = 0.7
 
 if __name__ == "__main__":
     pacmacro.select_player(BASE_URL, PLAYER_NAME, COORDINATE_START)
@@ -40,10 +40,10 @@ if __name__ == "__main__":
         pacmacro.move_player(
                 BASE_URL, PLAYER_NAME,
                 COORDINATE_START, COORDINATE_END,
-                STEPS, DELAY_TIME
+                STEPS, DELAY_SECS
         )
         pacmacro.move_player(
                 BASE_URL, PLAYER_NAME,
                 COORDINATE_END, COORDINATE_START,
-                STEPS, DELAY_TIME
+                STEPS, DELAY_SECS
         )
