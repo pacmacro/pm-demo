@@ -36,36 +36,14 @@ DELAY_TIME = 0.7
 if __name__ == "__main__":
     pacmacro.select_player(BASE_URL, PLAYER_NAME, COORDINATE_START)
 
-    latitude_step = (
-            (COORDINATE_END.get("latitude") - COORDINATE_START.get("latitude"))
-            / STEPS
-    )
-    longitude_step = (
-            (COORDINATE_END.get("longitude") - COORDINATE_START.get("longitude"))
-            / STEPS
-    )
-
     while True:
-        new_coordinate = COORDINATE_START.copy()
-
-        for i in range(STEPS):
-            new_coordinate["latitude"] = \
-                    COORDINATE_START.get("latitude") + i*latitude_step
-            new_coordinate["longitude"] = \
-                    COORDINATE_START.get("longitude") + i*longitude_step
-
-            pacmacro.set_player_location(
-                    BASE_URL, PLAYER_NAME, new_coordinate
-            )
-            time.sleep(DELAY_TIME)
-
-        for i in range(STEPS, 0, -1):
-            new_coordinate["latitude"] = \
-                    COORDINATE_START.get("latitude") + i*latitude_step
-            new_coordinate["longitude"] = \
-                    COORDINATE_START.get("longitude") + i*longitude_step
-
-            pacmacro.set_player_location(
-                    BASE_URL, PLAYER_NAME, new_coordinate
-            )
-            time.sleep(DELAY_TIME)
+        pacmacro.move_player(
+                BASE_URL, PLAYER_NAME,
+                COORDINATE_START, COORDINATE_END,
+                STEPS, DELAY_TIME
+        )
+        pacmacro.move_player(
+                BASE_URL, PLAYER_NAME,
+                COORDINATE_END, COORDINATE_START,
+                STEPS, DELAY_TIME
+        )

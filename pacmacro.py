@@ -5,6 +5,7 @@
 
 import json
 import requests
+import time
 
 HEADERS = {"Content-Type":"application/json"}
 
@@ -49,3 +50,30 @@ def set_player_location(base_url, name, coordinate):
             headers = HEADERS,
             data = create_json_coordinate_body(coordinate)
     ))
+
+def move_player(
+        base_url, name,
+        coordinate_start, coordinate_end,
+        steps, delay_secs):
+
+    latitude_step = (
+            (coordinate_end.get("latitude") - coordinate_start.get("latitude"))
+            / steps
+    )
+    longitude_step = (
+            (coordinate_start.get("longitude") -
+            coordinate_start.get("longitude"))
+            / steps
+    )
+
+    new_coordinate = coordinate_start.copy()
+    for i in range(steps):
+        new_coordinate["latitude"] = \
+                coordinate_start.get("latitude") + i*latitude_step
+        new_coordinate["longitude"] = \
+                coordinate_start.get("longitude") + i*longitude_step
+
+        set_player_location(
+                base_url, name, new_coordinate
+        )
+        time.sleep(delay_secs)
