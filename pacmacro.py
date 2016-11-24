@@ -60,7 +60,9 @@ def move_player(
     )
 
     new_coordinate = coordinate_start.copy()
-    for i in range(steps):
+    # From 1 to steps+1 because the player is assumed to already be at
+    # the start coordinate, and will end exactly at the end coordinate
+    for i in range(1, steps + 1):
         new_coordinate["latitude"] = \
                 coordinate_start.get("latitude") + i*latitude_step
         new_coordinate["longitude"] = \
