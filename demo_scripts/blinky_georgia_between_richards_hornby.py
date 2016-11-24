@@ -9,7 +9,7 @@ HEROKU_URL = "http://pacmacro.herokuapp.com"
 # CONFIGURATIONS:
 
 # Select the server to demo on
-BASE_URL = HEROKU_URL
+BASE_URL = LOCAL_URL
 
 # Player's name (i.e. Pacman/Pinky/Inky/Blinky/Clyde)
 PLAYER_NAME = "Blinky"
