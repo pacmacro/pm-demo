@@ -27,7 +27,7 @@ cd ..
 
 Once you have finished editing the configurations, choose any script in the `scripts/` to execute - for example:
 ```
-./pacman_borders_nesw.py
+./pacman.py
 ```
 
 ### Default Behaviour
