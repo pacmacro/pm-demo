@@ -29,3 +29,12 @@ Once you have finished editing the configurations, choose any script in the `scr
 ```
 ./pacman_borders_nesw.py
 ```
+
+### Default Behaviour
+
+By default:
+* `blinky.py` moves along Georgia Street, between Richards and Hornby,
+* `clyde.py` moves along Granville Street, between Georgia and Pender,
+* `inky.py` moves along Dunsmuir Street, between Howe and Seymour,
+* `pinky.py` moves along Pender Street, between Hornby and Richards, and
+* `pacman.py` encircles all 4 borders of the grid created by the above characters.
