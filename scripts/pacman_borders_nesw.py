@@ -1,15 +1,10 @@
 #!/usr/bin/python3
 
+import configparser
+import os
+
 # Custom modules
-import pacmacro
-
-LOCAL_URL = "http://localhost:8080"
-HEROKU_URL = "http://pacmacro.herokuapp.com"
-
-# CONFIGURATIONS:
-
-# Select the server to demo on
-BASE_URL = LOCAL_URL
+import pacmacro.api
 
 # Player's name (i.e. Pacman/Pinky/Inky/Blinky/Clyde)
 PLAYER_NAME = "Pacman"
@@ -36,27 +31,42 @@ STEPS_WEST_NORTH = STEPS_EAST_SOUTH
 # request/response times)
 DELAY_SECS = 0.5
 
-if __name__ == "__main__":
-    pacmacro.select_player(BASE_URL, PLAYER_NAME, COORDINATE_NORTH)
+def main(config):
+    server_config = config["Server"]
+    url = server_config.get("url") + ":" + str(server_config.getint("port"))
+
+    pacmacro.api.select_player(url, PLAYER_NAME, COORDINATE_NORTH)
 
     while True:
-        pacmacro.move_player(
-                BASE_URL, PLAYER_NAME,
+        pacmacro.api.move_player(
+                url, PLAYER_NAME,
                 COORDINATE_NORTH, COORDINATE_EAST,
                 STEPS_NORTH_EAST, DELAY_SECS
         )
-        pacmacro.move_player(
-                BASE_URL, PLAYER_NAME,
+        pacmacro.api.move_player(
+                url, PLAYER_NAME,
                 COORDINATE_EAST, COORDINATE_SOUTH,
                 STEPS_EAST_SOUTH, DELAY_SECS
         )
-        pacmacro.move_player(
-                BASE_URL, PLAYER_NAME,
+        pacmacro.api.move_player(
+                url, PLAYER_NAME,
                 COORDINATE_SOUTH, COORDINATE_WEST,
                 STEPS_SOUTH_WEST, DELAY_SECS
         )
-        pacmacro.move_player(
-                BASE_URL, PLAYER_NAME,
+        pacmacro.api.move_player(
+                url, PLAYER_NAME,
                 COORDINATE_WEST, COORDINATE_NORTH,
                 STEPS_WEST_NORTH, DELAY_SECS
         )
+
+if __name__ == "__main__":
+    location = os.path.realpath(
+        os.path.join(os.getcwd(), os.path.dirname(__file__)))
+    config_filename = os.path.join(location, "cfg/target-server.cfg")
+    config = configparser.ConfigParser()
+    config.read(config_filename)
+    
+    try:
+        main(config)
+    except Exception as e:
+        raise

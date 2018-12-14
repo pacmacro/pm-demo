@@ -6,13 +6,26 @@ Python 3 scripts which automate player movement on a Pac Macro server for demons
 
 No external libraries are required.
 
-The `pacmacro.py` module contains everything you need to interact with the Pac Macro server. The `template.py` script is an example for how to use the `pacmacro` module to move a player around, and is a great start if you'd like to make your own player demonstration scripts
+The `scripts/pacmacro/api.py` module contains everything you need to interact with the Pac Macro server.
 
 ## Setup
 
-To start using the scripts provided, choose any script other than `pacmacro.py` or `template.py`. Edit the script to set the configurations for the server which the demo will be performed on, which player will be moved, and where the player will move from/to. By default, the scripts are configured for a server running on `localhost:8080`.
+Navigate into the configuration directory:
+```
+cd scripts/cfg/
+```
 
-Once you have finished editing the configurations, simply execute the script:
+Create a new configuration file named `target-server.cfg` which will not be tracked by Git. You may create your own using the provided file `target-server.cfg.template` or reuse a provided config - for example:
+```
+cp target-server.cfg.heroku target-server.cfg
+```
+
+Exit the configuration directory:
+```
+cd ..
+```
+
+Once you have finished editing the configurations, choose any script in the `scripts/` to execute - for example:
 ```
 ./pacman_borders_nesw.py
 ```

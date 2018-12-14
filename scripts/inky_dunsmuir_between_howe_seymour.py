@@ -1,20 +1,12 @@
 #!/usr/bin/python3
-#
-# This Python 3 file is a template for creating a demonstration script
-# for a Pac Macro player. Fill in and modify the configurations below
-# before executing the script.
-#
+
+import configparser
+import os
 
 # Custom modules
-import pacmacro
-
-LOCAL_URL = "http://localhost:8080"
-HEROKU_URL = "http://pacmacro.herokuapp.com"
+import pacmacro.api
 
 # CONFIGURATIONS:
-
-# Select the server to demo on
-BASE_URL = LOCAL_URL
 
 # Player's name (i.e. Pacman/Pinky/Inky/Blinky/Clyde)
 PLAYER_NAME = "Inky"
@@ -34,17 +26,32 @@ STEPS = 6
 # request/response times)
 DELAY_SECS = 0.7
 
-if __name__ == "__main__":
-    pacmacro.select_player(BASE_URL, PLAYER_NAME, COORDINATE_START)
+def main(config):
+    server_config = config["Server"]
+    url = server_config.get("url") + ":" + str(server_config.getint("port"))
+
+    pacmacro.api.select_player(url, PLAYER_NAME, COORDINATE_START)
 
     while True:
-        pacmacro.move_player(
-                BASE_URL, PLAYER_NAME,
+        pacmacro.api.move_player(
+                url, PLAYER_NAME,
                 COORDINATE_START, COORDINATE_END,
                 STEPS, DELAY_SECS
         )
-        pacmacro.move_player(
-                BASE_URL, PLAYER_NAME,
+        pacmacro.api.move_player(
+                url, PLAYER_NAME,
                 COORDINATE_END, COORDINATE_START,
                 STEPS, DELAY_SECS
         )
+
+if __name__ == "__main__":
+    location = os.path.realpath(
+        os.path.join(os.getcwd(), os.path.dirname(__file__)))
+    config_filename = os.path.join(location, "cfg/target-server.cfg")
+    config = configparser.ConfigParser()
+    config.read(config_filename)
+    
+    try:
+        main(config)
+    except Exception as e:
+        raise

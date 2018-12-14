@@ -1,0 +1,6 @@
+# Configuration file for the Pac Macro automation scripts.
+
+[Server]
+url=http://pacmacro.herokuapp.com
+# If on web, 80.
+port=80
