@@ -2,9 +2,7 @@
 
 Python 3 scripts which automate player movement on a Pac Macro server for demonstration purposes.
 
-<center>
-  <img src="readme-img/demo.gif" width="50%" height="50%">
-</center>
+<img src="readme-img/demo.gif" align="middle" width="50%" height="50%">
 
 ## Components
 
