@@ -2,6 +2,8 @@
 
 Python 3 scripts which automate player movement on a Pac Macro server for demonstration purposes.
 
+![Video of characters on the grid](readme-img/demo.gif)
+
 ## Components
 
 No external libraries are required.
@@ -38,5 +40,3 @@ By default:
 * `inky.py` moves along Dunsmuir Street, between Howe and Seymour,
 * `pinky.py` moves along Pender Street, between Hornby and Richards, and
 * `pacman.py` encircles all 4 borders of the grid created by the above characters.
-
-![Image of characters on the grid](readme-img/map.png)
